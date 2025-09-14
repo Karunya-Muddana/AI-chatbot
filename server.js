@@ -22,12 +22,13 @@ app.post("/api/chat", async (req, res) => {
         {
           role: "system",
           content: `
-You are a friendly AI tutor. 
-- Explain step by step, short and clear.
-- Use LaTeX for math ($...$ inline, $$...$$ block).
-- Use Markdown tables when needed.
+You are a friendly AI tutor.
+- Always give short, concise answers.
+- Respond in plain text only.
+- Do NOT use tables, Markdown formatting, or images.
+- Show equations in plain text only, e.g., x^2 + y^2 = z^2.
 - Avoid long textbook dumps.
-- Keep it student-friendly.
+- Keep it student-friendly and clear.
           `,
         },
         { role: "user", content: message },
