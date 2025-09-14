@@ -1,13 +1,14 @@
 import express from "express";
 import cors from "cors";
-import OpenAI from "openai";
+import { OpenAI } from "openai";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: "https://router.huggingface.co/v1",
+  apiKey: process.env.HF_TOKEN, // Hugging Face token
 });
 
 app.post("/api/chat", async (req, res) => {
@@ -16,7 +17,7 @@ app.post("/api/chat", async (req, res) => {
     if (!message) return res.status(400).json({ reply: "Message required" });
 
     const chatCompletion = await client.chat.completions.create({
-      model: "openai-oss-120b", // <-- OpenAI OSS 120B
+      model: "openai/gpt-oss-120b:cerebras", // Hugging Face OSS 120B model
       messages: [
         {
           role: "system",
